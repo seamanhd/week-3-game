@@ -4,6 +4,8 @@
 <head>
 	
 	<link rel="stylesheet" href="assets/css/reset.css">
+	 
+	 <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
 	 <link rel="stylesheet" href="assets/css/style.css">
 	 
 
@@ -12,20 +14,70 @@
 </head>
 <body>
 
-	<header> <h1> Animal Hangman </h1> </header>
+<div class="container">
 
-	<p> Instructions: Guess the mystery animal one letter at a time by pressing a key on your keyboard. You have 10 guesses for each mystery animal, so guess wisely! 
 
-	<p id="instructions"> Press any key to get started! </p>
 
-	<p id="winner"> Wins: </p>
+	<header class="row"> <h1 class="col-md-9"> Animal Hangman </h1> 
+	<div class="col-md-3">
 
-	<p id="current"> Current Word:
+	<img src="assets/images/animal-prints.png" alt="paw prints">
+	<img src="assets/images/animal-prints.png" alt="paw prints">
+	<img src="assets/images/animal-prints.png" alt="paw prints">
+	</div>
+	</header>
+	
+	<div class="row row-centered">
+
+	
+
+	<p id="top" class="para"> Instructions: Guess the mystery animal one letter at a time by pressing a key on your keyboard. 
+	You have 10 guesses for each mystery animal, so guess wisely!</p> 
+
+	</div>
+	<div class="row row-centered">
+
+	<p id ="instructions"> Press any key to get started! </p>
+
+	</div>
+	<div class="row row-centered">
+	<p id="current" class="para"> Current Word:
 	_ _ _ _ _ </p>
 
-	<p id ="remaining"> Guesses Remaining: </p>
+	</div>
+	<div class="row bottom-row">
 
-	<p id="guessed"> Letters Already Guessed: </p>
+
+	
+	<div class="col-md-5 bottom">
+
+	<p id="guessed" class="para"> Letters Already Guessed: </p>
+
+	</div>
+
+	<div class="col-md-4 bottom">
+
+	<p id ="remaining" class="para"> Guesses Remaining: </p>
+	</div>
+
+	<div class="col-md-3 bottom">	
+
+	<p id="winner" class="para"> Wins: </p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+<footer class="col-md-12"> © Heather Seaman 2016 </footer>
 
 
 <script type="text/javascript" src="assets/javascript/game.js"></script> 

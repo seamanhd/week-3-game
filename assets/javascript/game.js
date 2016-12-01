@@ -1,4 +1,7 @@
-// VARIABLES
+
+//-----------------------------------------------------------------------------
+// GLOBAL VARIABLES
+//-----------------------------------------------------------------------------
 
 var animalList = [
 	"zebra",
@@ -8,87 +11,69 @@ var animalList = [
 	"mouse"
 	]
 
-// var userGuess = key pressed
-
-// var currentAnimal = random animal from animalList	
-
 // var winCount = number of wins
-
-// var guessesLeft = number of remaining guesses 
-
-
  var winCount = 1;
 
+// var guessesLeft = number of remaining guesses
  var guessesLeft = "";
 
+// var dashes = array to be used during each round
  var dashes =[];
 
+// var wrongGuesses = array of incorrect guesses
  var wrongGuesses = [];
-	
+
+// var currentAnimal = random animal from animalList	
 var currentAnimal = "";
 
-var animalToCheck = [];
 
-var dashString = "";
 
 // ----------------------------------------------------------------------------
 // FUNCTIONS
-
-//reset function
-
-
-
-
-
+//------------------------------------------------------------------------------
 
 var setUp = function () {
 	// pick a random animal ----- not a global variable??
 		currentAnimal = animalList[Math.floor(Math.random() * animalList.length)];
 	console.log(currentAnimal);
+
 	//setting guess count
-		guessesLeft = 10
+		guessesLeft = 10;
+
 	// split up letters of current animal
 	currentAnimal.split("");
-	for (var i=0;i<currentAnimal.length;i++) {console.log(currentAnimal[i])}
+	//for (var i=0;i<currentAnimal.length;i++) {console.log(currentAnimal[i])};
+
 	//create array of dashes
 	for (var i=0;i<currentAnimal.length;i++) {
 		dashes.push(" _ ");
 	}
 
-	for (var i=0;i<currentAnimal.length;i++) {
-		animalToCheck.push(currentAnimal[i]);
-		
-	}
-
-	console.log(animalToCheck);
-
-
 	//write dashes to the page
-		
 		document.querySelector("#current").innerHTML = "Current Word: " + dashes[0] + dashes[1] + dashes[2] + dashes[3] + dashes[4];
-		console.log(dashes)
+		//console.log(dashes)
 
 }
 
 
 
 
-
+// checking to see how many guesses are left 
 var checkGuessCount = function () {
-	if (guessesLeft>1) {
-			console.log("rungame");
+	if (guessesLeft>0) {
+			//console.log("rungame");
 			guessesLeft--;
 		}
 
 		else  {
-			alert("Game Over. Try Again!");
+			document.querySelector("#instructions").innerHTML = "Game over. Press any key to try again!";
 			reset();
 		}
 }
 
 
 
-
+// checking to see if user guessed a correct letter or a wrong letter
 var checkUserGuess = function () {
 	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 		console.log(userGuess);
@@ -120,6 +105,7 @@ var checkUserGuess = function () {
 
 }
 
+// checking to see if the user has guessed all letters 
 var checkWin = function () {
 
 	var letterOne = dashes[0];
@@ -145,14 +131,15 @@ var checkWin = function () {
 }
 
 
-
+// a function to call other functions!
 var runGame = function () {
 	setUp();
 
 	document.onkeyup = function () {
-	checkGuessCount();
+	
 	checkUserGuess();
 	checkWin();
+	checkGuessCount();
 	}
 }
 
@@ -172,87 +159,4 @@ var reset = function () {
 }
 
 
-	/*
-	//prep the game 
-var runGame = function () {
-	// pick a random animal ----- not a global variable??
-	currentAnimal = animalList[Math.floor(Math.random() * animalList.length)];
-	console.log(currentAnimal);
-	// split up letters of current animal
-	currentAnimal.split("");
-	for (var i=0;i<currentAnimal.length;i++) {console.log(currentAnimal[i])}
-	//create array of dashes
-	for (var i=0;i<currentAnimal.length;i++) {
-		dashes.push(" _ ");
-		
-	}
-	//write dashes to the page
-		document.querySelector("#current").innerHTML = "Current Word: " + dashes;
-
-
-
-
-
-
-		//when user presses key ...
-	document.onkeyup = function () {
-
-		//if they have guesses left, take away one of their guesses
-		if (guessesLeft>0) {
-			console.log("rungame");
-			guessesLeft--;
-		}
-
-		else  {
-			endGame();
-		}
-
-
-
-		
-
-		
 	
-		
-		// identify key that user guessed	
-		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-		console.log(userGuess);
-
-		//checking userGuess against the array
-		if (currentAnimal.indexOf(userGuess) > -1) {
-			console.log(true)
-			var guessIndex = currentAnimal.indexOf(userGuess);
-			console.log(guessIndex);
-			dashes.splice(guessIndex, 1, userGuess);
-			console.log(dashes)
-			document.querySelector("#current").innerHTML = "Current Word: " + dashes;
-		}
-		else {
-			console.log(false)
-			document.querySelector("#remaining").innerHTML = "Guesses remaining: " + guessesLeft;
-			wrongGuesses.push(" " + userGuess);
-			console.log(wrongGuesses);
-			document.querySelector("#guessed").innerHTML = "Already guessed: " + wrongGuesses;
-
-		}
-
-		//checking if they won!
-
-		if (dashes === currentAnimal) {
-			alert("You Win!!!");
-		}
-	}
-
-	}
-
-	runGame();*/
-
-//how to replace the dashes? replace index value of dashes with index value of *new var* userIndex (index value of userGuess in currentAnimal) + write to html
-
-//need to write dashes to current word DONE
-
-// how to count a win at the end of the for loop? then run set up again? 
-
-//DONE how to add multiple userGuess to #guessed without overwriting previous guess? -- new array = userGuesses and add new userGuess to array IF false
-
-// LOOPS
