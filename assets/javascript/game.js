@@ -17,7 +17,7 @@ var animalList = [
 // var guessesLeft = number of remaining guesses 
 
 
- var winCount = "";
+ var winCount = 1;
 
  var guessesLeft = "";
 
@@ -26,6 +26,10 @@ var animalList = [
  var wrongGuesses = [];
 	
 var currentAnimal = "";
+
+var animalToCheck = [];
+
+var dashString = "";
 
 // ----------------------------------------------------------------------------
 // FUNCTIONS
@@ -49,11 +53,20 @@ var setUp = function () {
 	//create array of dashes
 	for (var i=0;i<currentAnimal.length;i++) {
 		dashes.push(" _ ");
+	}
+
+	for (var i=0;i<currentAnimal.length;i++) {
+		animalToCheck.push(currentAnimal[i]);
 		
 	}
+
+	console.log(animalToCheck);
+
+
 	//write dashes to the page
-		dashes.join("");
-		document.querySelector("#current").innerHTML = "Current Word: " + dashes;
+		
+		document.querySelector("#current").innerHTML = "Current Word: " + dashes[0] + dashes[1] + dashes[2] + dashes[3] + dashes[4];
+		console.log(dashes)
 
 }
 
@@ -80,6 +93,8 @@ var checkUserGuess = function () {
 	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 		console.log(userGuess);
 
+
+
 	if (currentAnimal.indexOf(userGuess) > -1) {
 			console.log(true)
 			var guessIndex = currentAnimal.indexOf(userGuess);
@@ -87,25 +102,57 @@ var checkUserGuess = function () {
 			dashes.splice(guessIndex, 1, userGuess);
 			console.log(dashes);
 			document.querySelector("#remaining").innerHTML = "Guesses remaining: " + guessesLeft;
-			document.querySelector("#current").innerHTML = "Current Word: " + dashes;
-		}
-		else {
-			console.log(false)
-			document.querySelector("#remaining").innerHTML = "Guesses remaining: " + guessesLeft;
-			wrongGuesses.push(" " + userGuess);
-			console.log(wrongGuesses);
-			document.querySelector("#guessed").innerHTML = "Already guessed: " + wrongGuesses;
+			document.querySelector("#current").innerHTML = "Current Word: " + dashes[0] + dashes[1] + dashes[2] + dashes[3] + dashes[4];
 
 		}
+
+
+		else {
+			console.log(false)
+			document.querySelector("#remaining").innerHTML = "Guesses Remaining: " + guessesLeft;
+			wrongGuesses.push(" " + userGuess);
+			console.log(wrongGuesses);
+			document.querySelector("#guessed").innerHTML = "Letters Already Guessed: " + wrongGuesses;
+
+		}
+
+		
+
+}
+
+var checkWin = function () {
+
+	var letterOne = dashes[0];
+	var letterTwo = dashes[1];
+	var letterThree = dashes[2];
+	var letterFour = dashes[3];
+	var letterFive = dashes[4];
+	var guessToCheck = letterOne + letterTwo + letterThree + letterFour + letterFive;
+	console.log(guessToCheck);
+
+	if (guessToCheck === currentAnimal) {
+		document.querySelector("#instructions").innerHTML = "You Win! <br/> Correct answer: " + currentAnimal + "<br/> Press any key to play again!";
+		
+		document.querySelector("#winner").innerHTML = "Wins: " + winCount++;
+
+		reset();
+	}
+
+	
+
+
+
 }
 
 
 
 var runGame = function () {
 	setUp();
+
 	document.onkeyup = function () {
 	checkGuessCount();
 	checkUserGuess();
+	checkWin();
 	}
 }
 
@@ -116,8 +163,10 @@ var runGame = function () {
 
 var reset = function () {
 	guessesLeft = 10;
+	document.querySelector("#remaining").innerHTML = "Guesses remaining: " + guessesLeft;
 	dashes =[];
 	wrongGuesses=[];
+	document.querySelector("#guessed").innerHTML = "Letters Already Guessed: " + wrongGuesses;
 	currentAnimal="";
 	runGame();
 }
