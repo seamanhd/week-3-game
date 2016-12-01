@@ -32,12 +32,7 @@ var currentAnimal = "";
 
 //reset function
 
-var reset = function () {
-	guessesLeft = 10;
-	dashes =[];
-	wrongGuesses=[];
-	currentAnimal="";
-}
+
 
 
 
@@ -57,6 +52,7 @@ var setUp = function () {
 		
 	}
 	//write dashes to the page
+		dashes.join("");
 		document.querySelector("#current").innerHTML = "Current Word: " + dashes;
 
 }
@@ -66,7 +62,7 @@ var setUp = function () {
 
 
 var checkGuessCount = function () {
-	if (guessesLeft>0) {
+	if (guessesLeft>1) {
 			console.log("rungame");
 			guessesLeft--;
 		}
@@ -89,7 +85,8 @@ var checkUserGuess = function () {
 			var guessIndex = currentAnimal.indexOf(userGuess);
 			console.log(guessIndex);
 			dashes.splice(guessIndex, 1, userGuess);
-			console.log(dashes)
+			console.log(dashes);
+			document.querySelector("#remaining").innerHTML = "Guesses remaining: " + guessesLeft;
 			document.querySelector("#current").innerHTML = "Current Word: " + dashes;
 		}
 		else {
@@ -108,8 +105,6 @@ var runGame = function () {
 	setUp();
 	document.onkeyup = function () {
 	checkGuessCount();
-	//var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-		//onsole.log(userGuess);
 	checkUserGuess();
 	}
 }
@@ -119,6 +114,13 @@ var runGame = function () {
 
 	runGame ();
 
+var reset = function () {
+	guessesLeft = 10;
+	dashes =[];
+	wrongGuesses=[];
+	currentAnimal="";
+	runGame();
+}
 
 
 	/*
